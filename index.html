@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The CV — building one that gets you into a games studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#10161F; --ink-soft:#39424F; --dim:#6E7885;
+  --paper:#E6E8EA; --panel:#FFFFFF; --line:#C9CFD6; --line-soft:#DFE3E8;
+  --accent:#2B5CE6; --accent-wash:#E2E9FC;
+  --rust:#B03A22; --rust-wash:#F7E4DF;
+  --moss:#186B4F; --moss-wash:#DDEDE6;
+  --shift:cubic-bezier(.2,.7,.3,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:16px;line-height:1.6}
+h1,h2,h3,h4{font-family:"Space Grotesk",system-ui,sans-serif}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+button{font:inherit;cursor:pointer}
+
+.hero{background:var(--ink);color:#EDF0F4;padding:54px 0 42px;border-bottom:6px solid var(--accent)}
+.hero h1{font-size:clamp(36px,6.5vw,62px);line-height:1;margin:0 0 16px;font-weight:700;letter-spacing:-.02em}
+.hero h1 span{display:block;color:#8FA9EC}
+.hero p{max-width:56ch;color:#B9C2CE;margin:0 0 14px;font-size:17px}
+.hero .tip{font-size:13.5px;color:#8E9AAA;margin-top:20px}
+.jump{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.jump a{font-family:"Space Grotesk";font-size:14px;text-decoration:none;color:#DDE3EB;border:1.5px solid #2E3A4C;border-radius:4px;padding:9px 14px}
+.jump a:hover{border-color:var(--accent);background:#1A2434}
+
+section.blk{padding:46px 0;border-bottom:1px solid var(--line)}
+.head{display:flex;align-items:baseline;gap:14px;margin:0 0 8px;flex-wrap:wrap}
+.tag{font-family:"Space Grotesk";font-weight:700;font-size:12.5px;letter-spacing:.08em;color:var(--accent);background:var(--accent-wash);padding:3px 9px;border-radius:3px}
+.head h2{font-size:clamp(23px,3.6vw,31px);margin:0;letter-spacing:-.01em}
+.lede{color:var(--ink-soft);max-width:66ch;margin:0 0 24px}
+
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:0 0 8px}
+.fact{background:var(--panel);border:1.5px solid var(--line-soft);border-radius:6px;padding:15px 17px}
+.fact b{font-family:"Space Grotesk";font-size:25px;font-weight:700;display:block;line-height:1.2}
+.fact span{font-size:13.5px;color:var(--dim);display:block;margin-top:3px}
+
+.rolebar{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px}
+.rb{background:var(--panel);border:1.5px solid var(--line-soft);border-radius:4px;padding:9px 14px;font-family:"Space Grotesk";font-size:14px}
+.rb:hover{border-color:var(--accent)}
+.rb[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+
+.cvgrid{display:grid;grid-template-columns:1fr 330px;gap:24px;align-items:start}
+@media (max-width:900px){.cvgrid{grid-template-columns:1fr}}
+
+.cv{background:var(--panel);border:1.5px solid var(--line-soft);border-radius:6px;padding:34px 38px;font-size:14px;line-height:1.55}
+@media (max-width:520px){.cv{padding:22px 20px}}
+.sec{border:1.5px solid transparent;border-radius:4px;padding:9px 11px;margin:0 -11px 4px;display:block;width:calc(100% + 22px);text-align:left;background:none;font:inherit;color:inherit;transition:background .15s var(--shift)}
+.sec:hover{background:#F2F5F9;border-color:var(--line-soft)}
+.sec[aria-pressed="true"]{background:var(--accent-wash);border-color:var(--accent)}
+.cv .nm{font-family:"Space Grotesk";font-size:27px;font-weight:700;line-height:1.1;margin:0}
+.cv .rl{font-family:"Space Grotesk";font-size:15px;color:var(--accent);margin:2px 0 7px}
+.cv .ct{font-size:13px;color:var(--ink-soft)}
+.cv h4{font-family:"Space Grotesk";font-size:12.5px;font-weight:700;letter-spacing:.07em;color:var(--dim);margin:0 0 6px;text-transform:uppercase}
+.cv p{margin:0 0 6px}
+.cv ul{margin:0;padding-left:17px}
+.cv li{margin-bottom:4px}
+.cv .ttl{font-weight:500}
+.cv .meta{color:var(--dim);font-size:12.5px}
+.cv .skillrow{display:flex;gap:10px;margin-bottom:4px;flex-wrap:wrap}
+.cv .skillrow b{font-weight:500;min-width:104px;font-size:13px}
+.cv .skillrow span{font-size:13px;color:var(--ink-soft);flex:1}
+
+.note{background:var(--panel);border:1.5px solid var(--line-soft);border-radius:6px;padding:20px;position:sticky;top:20px}
+@media (max-width:900px){.note{position:static;margin-top:14px}}
+.note h3{margin:0 0 8px;font-size:17px;font-weight:500}
+.note .what{font-size:14.5px;color:var(--ink-soft);margin:0 0 14px}
+.note dl{margin:0}
+.note dt{font-family:"Space Grotesk";font-size:12.5px;font-weight:500;letter-spacing:.03em;margin:0 0 3px}
+.note dd{margin:0 0 13px;font-size:14px;color:var(--ink-soft)}
+.note .do{color:var(--moss)}
+.note .dont{color:var(--rust)}
+.note .idle{color:var(--dim);font-size:14.5px;margin:0}
+
+.quiz{background:var(--panel);border:1.5px solid var(--line-soft);border-radius:6px;padding:22px 24px;max-width:760px}
+.qcount{font-family:"Space Grotesk";font-size:13px;color:var(--dim);margin:0 0 4px}
+.qq{font-size:16px;margin:0 0 16px;font-weight:500;font-family:"Space Grotesk"}
+.opt{display:block;width:100%;text-align:left;background:#F4F6F8;border:1.5px solid transparent;border-radius:5px;padding:13px 15px;margin-bottom:9px;font-size:14.5px;line-height:1.5}
+.opt:hover{border-color:var(--line)}
+.opt.right{background:var(--moss-wash);border-color:var(--moss)}
+.opt.wrong{background:var(--rust-wash);border-color:var(--rust)}
+.opt:disabled{cursor:default}
+.fb{border-radius:5px;padding:13px 15px;font-size:14.5px;margin:4px 0 14px;background:#F4F6F8;color:var(--ink-soft)}
+.fb b{display:block;font-family:"Space Grotesk";font-size:13px;color:var(--ink);margin-bottom:3px}
+.fb[hidden]{display:none}
+.score{font-family:"Space Grotesk";font-size:14px;color:var(--dim);margin-top:12px}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1.5px solid var(--line-soft);border-radius:6px;padding:18px 20px;border-left-width:5px}
+.card.yes{border-left-color:var(--moss)}
+.card.no{border-left-color:var(--rust);background:#FBF3F1}
+.card h4{margin:0 0 10px;font-size:15px;font-weight:500}
+.card ul{margin:0;padding-left:18px;font-size:14.5px;color:var(--ink-soft)}
+.card li{margin-bottom:8px}
+
+.links{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:12px}
+.lk{background:var(--panel);border:1.5px solid var(--line-soft);border-radius:6px;padding:17px 19px;text-decoration:none;color:inherit;display:block}
+.lk:hover{border-color:var(--accent)}
+.lk b{font-family:"Space Grotesk";font-size:15.5px;font-weight:500;display:block;color:var(--accent)}
+.lk .u{font-size:12px;color:var(--dim);display:block;margin:2px 0 7px;word-break:break-all}
+.lk span.d{font-size:14px;color:var(--ink-soft)}
+
+.check{background:var(--panel);border:1.5px solid var(--line-soft);border-radius:6px;padding:8px 22px;max-width:800px}
+.ci{display:flex;gap:12px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--line-soft)}
+.ci:last-child{border-bottom:none}
+.ci input{margin-top:5px;width:17px;height:17px;flex-shrink:0;accent-color:var(--accent)}
+.ci label{font-size:14.5px;cursor:pointer}
+.ci label b{font-weight:500;display:block;font-family:"Space Grotesk";font-size:14.5px}
+.ci label span{color:var(--dim);font-size:13.5px}
+
+.gl{background:none;border:none;padding:0;color:inherit;font:inherit;border-bottom:1.5px dotted var(--accent);cursor:help}
+.gl:hover{background:var(--accent-wash)}
+.hero .gl{border-bottom-color:#8FA9EC}
+.hero .gl:hover{background:#243149}
+#pop{position:absolute;z-index:60;max-width:320px;background:var(--ink);color:#E4E9F0;border-radius:6px;padding:14px 16px;font-size:14px;line-height:1.55;box-shadow:0 6px 26px rgba(16,22,31,.28)}
+#pop[hidden]{display:none}
+#pop b{display:block;font-family:"Space Grotesk";font-weight:500;color:#fff;margin-bottom:4px;font-size:15px}
+
+.btn{font-family:"Space Grotesk";font-weight:500;background:transparent;color:var(--ink);border:1.5px solid var(--line);border-radius:4px;padding:11px 20px}
+.btn:hover{background:#DBDFE4}
+footer{padding:34px 0 70px;color:var(--dim);font-size:13.5px}
+footer p{margin:0 0 8px;max-width:74ch}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{.hero,.jump,.rolebar,.note,#quiz,#pop{display:none}.cv{border:none;padding:0}.cvgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="pop" hidden role="dialog"></div>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>The CV<span>one page, twenty seconds, one chance</span></h1>
+    <p>Your {{portfolio|portfolio}} proves you can do the work. Your CV proves you are worth the risk of hiring. They do different jobs, and a studio will not look at the second one if the first is missing.</p>
+    <p>This page takes apart a real-shaped CV for five different games roles, shows you what a {{recruiter|recruiter}} does with each part of it, and gives you a checklist to work from in class.</p>
+    <p class="tip">Words with a dotted underline are industry jargon — tap for a plain-English explanation.</p>
+    <nav class="jump">
+      <a href="#anatomy">Take a CV apart</a>
+      <a href="#quiz">Spot the stronger line</a>
+      <a href="#rules">Rules and myths</a>
+      <a href="#links">Where to read more</a>
+      <a href="#build">Your checklist</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="blk">
+  <div class="wrap">
+    <div class="head"><span class="tag">Start here</span><h2>What a CV actually is</h2></div>
+    <p class="lede">A CV is a one-page, factual summary of what you can do, what you have made and where you learned it — written for a specific job, not for everyone. In games it has one purpose: to get someone to open your portfolio link, and then to survive the check that happens after they like your work.</p>
+    <div class="facts">
+      <div class="fact"><b>1 page</b><span>Two only if you have professional credits. You do not yet.</span></div>
+      <div class="fact"><b>~20 sec</b><span>The first read. Everything important goes in the top third.</span></div>
+      <div class="fact"><b>Rewritten</b><span>Each application. A CV sent unchanged to twelve studios reads that way.</span></div>
+      <div class="fact"><b>Not the portfolio</b><span>The CV is the argument. The portfolio is the evidence.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="blk" id="anatomy">
+  <div class="wrap">
+    <div class="head"><span class="tag">Interactive</span><h2>Take a CV apart</h2></div>
+    <p class="lede">Below is a CV built for someone finishing a Level 3 course with no paid games experience — the position you are in. Switch the role to see how the same structure carries completely different evidence. Tap any section of the CV to find out what a studio does with it.</p>
+    <div class="rolebar" id="rolebar"></div>
+    <div class="cvgrid">
+      <div class="cv" id="cv"></div>
+      <aside class="note" id="note"><p class="idle">Tap a section of the CV to see what it is for, what a good one looks like, and the mistake that gets made most often.</p></aside>
+    </div>
+    <p style="margin-top:14px"><button class="btn" onclick="window.print()">Print this CV as a model</button></p>
+  </div>
+</section>
+
+<section class="blk" id="quiz">
+  <div class="wrap">
+    <div class="head"><span class="tag">Test yourself</span><h2>Spot the stronger line</h2></div>
+    <p class="lede">Both options say roughly the same thing. One of them survives a twenty-second read. Pick the stronger.</p>
+    <div class="quiz" id="quizbox"></div>
+  </div>
+</section>
+
+<section class="blk" id="rules">
+  <div class="wrap">
+    <div class="head"><span class="tag">Reference</span><h2>Rules that hold, and myths that do not</h2></div>
+    <p class="lede">Some of this contradicts general careers advice you may have been given. Games hiring is its own thing, and where they conflict, follow the games-specific version.</p>
+    <div class="two">
+      <div class="card yes">
+        <h4>Do</h4>
+        <ul>
+          <li>Put your portfolio link in the header, as a plain readable address, not hidden at the bottom</li>
+          <li>Put projects above education — what you have made matters more than where you studied</li>
+          <li>Name software and {{engine|engines}} exactly: “Unreal Engine 5”, “Blender”, “Substance Painter”, “C#”</li>
+          <li>State your own contribution on every team project, in specific terms</li>
+          <li>Use numbers where they exist — team size, asset count, jam length, poly budgets</li>
+          <li>Keep one consistent look with your portfolio and profiles</li>
+          <li>Save and send as PDF, named <span style="font-family:monospace;font-size:13px">Firstname-Lastname-CV.pdf</span></li>
+        </ul>
+      </div>
+      <div class="card no">
+        <h4>Do not</h4>
+        <ul>
+          <li>Include a photo, your date of birth, your full address or your marital status — UK studios do not want them</li>
+          <li>Use skill rating bars or star ratings; nobody knows what four stars in Maya means</li>
+          <li>Write “references available on request” — it wastes a line everyone assumes anyway</li>
+          <li>Claim software you cannot use in front of someone. It is tested at interview</li>
+          <li>List “socialising, music, films” under interests. Use that space for {{jam|game jams}}, communities and personal projects</li>
+          <li>Use a novelty email address, or one you no longer check daily</li>
+          <li>Send a Word file, which reformats itself on someone else's machine</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="blk" id="links">
+  <div class="wrap">
+    <div class="head"><span class="tag">Go further</span><h2>Where to read more</h2></div>
+    <p class="lede">All UK-focused and free. The first two are the ones to use while writing; the rest are for working out which role you are aiming at.</p>
+    <div class="links">
+      <a class="lk" href="https://gradsingames.com/services/students/games-industry-cv-advice/" target="_blank" rel="noopener"><b>Grads in Games — CV advice</b><span class="u">gradsingames.com</span><span class="d">The most directly useful page here. Section-by-section guidance written for people with no industry experience, plus downloadable CV templates.</span></a>
+      <a class="lk" href="https://www.skillsearch.com/news/item/writing-the-ideal-cv-for-the-games-industry" target="_blank" rel="noopener"><b>Skillsearch — writing a games CV</b><span class="u">skillsearch.com</span><span class="d">Written by recruiters who place people into studios. Good on length, tone and what makes a CV memorable for the right reasons.</span></a>
+      <a class="lk" href="https://intogames.org/careers" target="_blank" rel="noopener"><b>Into Games — careers hub</b><span class="u">intogames.org/careers</span><span class="d">UK non-profit. Explains each discipline day-to-day, what skills it needs and what a good portfolio for it looks like. Free resources and events.</span></a>
+      <a class="lk" href="https://www.screenskills.com/job-profiles/browse/games/" target="_blank" rel="noopener"><b>ScreenSkills — games job profiles</b><span class="u">screenskills.com</span><span class="d">Every role in the industry, with the qualifications and routes in for each. Use it to find the exact job title to write at the top of your CV.</span></a>
+      <a class="lk" href="https://www.screenskills.com/starting-your-career/career-maps/games-career-map/" target="_blank" rel="noopener"><b>ScreenSkills — games career map</b><span class="u">screenskills.com</span><span class="d">A printable map of how roles connect and where each one leads. Useful for the medium- and long-term aims in your progression plan.</span></a>
+      <a class="lk" href="https://www.prospects.ac.uk/jobs-and-work-experience/job-sectors/information-technology/video-game-careers/" target="_blank" rel="noopener"><b>Prospects — video game careers</b><span class="u">prospects.ac.uk</span><span class="d">Careers service overview of the sector, including apprenticeship routes as an alternative to university.</span></a>
+      <a class="lk" href="https://nationalcareers.service.gov.uk/job-profiles/computer-games-developer" target="_blank" rel="noopener"><b>National Careers Service</b><span class="u">nationalcareers.service.gov.uk</span><span class="d">Government profile with realistic salary bands and entry requirements. Useful for the funding and routes research in your progression work.</span></a>
+      <a class="lk" href="https://ukiepedia.ukie.org.uk/index.php/Careers_in_the_Games_Industry" target="_blank" rel="noopener"><b>Ukie — careers in games</b><span class="u">ukiepedia.ukie.org.uk</span><span class="d">The UK games trade body's own list of career resources, including their map of games companies across the country.</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="blk" id="build">
+  <div class="wrap">
+    <div class="head"><span class="tag">Next lesson</span><h2>Before you write yours</h2></div>
+    <p class="lede">You will build your own CV in class. Bring the answers to these, because you cannot write a good CV from memory — the specifics are what make it work, and the specifics are what you will not remember.</p>
+    <div class="check" id="check"></div>
+    <p style="margin-top:16px"><button class="btn" onclick="window.print()">Print the checklist</button></p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Supports Unit B1 Phase 3 — creating materials for career progression using technical practice (B1.3, assessed under AC3). The CV and personal statement are named evidence in the specification's list of promotional materials.</p>
+    <p>External links were checked at the time of writing. If one has moved, search the organisation by name rather than guessing at a new address.</p>
+  </div>
+</footer>
+
+<script>
+var TERMS={
+ portfolio:["Portfolio","The public collection of work that proves you can do the job. In games it is almost always a web page, and it is the thing your CV exists to get someone to open."],
+ recruiter:["Recruiter","The person whose job is finding candidates. At a small studio this is a developer doing it in their spare time; at a large one it is a full team working through hundreds of applications."],
+ engine:["Engine","The software a game is built in. Unreal and Unity are the two most common. Adverts name a specific engine, and CVs that do not name it get missed by searches."],
+ jam:["Game jam","A short competition — often 48 hours — where teams make a whole small game to a surprise theme. The fastest way for a student to get a finished, dated, credited project onto a CV."],
+ filter:["Keyword filter","Software that scans applications for specific words before a person reads any of them. Large studios use it because 400 applications cannot be read individually."],
+ statement:["Personal statement","The short paragraph at the top of a CV saying who you are, what you want and why this studio. Rewritten for every application."],
+ credit:["Credit","Being named on a released game as having worked on it. Your first one matters; until then, student and jam projects do the same job on a CV."],
+ build:["Playable build","A version of a game someone can download and actually play. Far more persuasive than screenshots because it proves the thing runs."],
+ repo:["Repository","The online home of a code project, including the full history of every change. GitHub is the usual host. For programming roles it works like an art portfolio."],
+ pdf:["PDF","A file format that looks identical on every computer. Word documents reflow and break on other people's machines, which is why studios ask for PDFs."]
+};
+function $(i){return document.getElementById(i);}
+function gloss(h){return String(h).replace(/\{\{(\w+)\|(.*?)\}\}/g,function(m,k,t){return TERMS[k]?'<button class="gl" data-t="'+k+'">'+t+'</button>':t;});}
+
+var popOpen=null;
+function closePop(){$("pop").hidden=true;popOpen=null;}
+document.addEventListener("click",function(e){
+  var b=e.target.closest(".gl");
+  if(!b){if(!e.target.closest("#pop"))closePop();return;}
+  e.preventDefault(); e.stopPropagation();
+  if(popOpen===b){closePop();return;}
+  var t=TERMS[b.dataset.t],p=$("pop");
+  p.innerHTML="<b>"+t[0]+"</b>"+t[1]; p.hidden=false;
+  var r=b.getBoundingClientRect(),w=Math.min(320,window.innerWidth-24);
+  p.style.width=w+"px";
+  var x=r.left+window.scrollX;
+  if(x+w>window.innerWidth-12)x=window.innerWidth-w-12;
+  p.style.left=Math.max(12,x)+"px";
+  p.style.top=(r.bottom+window.scrollY+8)+"px";
+  popOpen=b;
+},true);
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closePop();});
+window.addEventListener("scroll",function(){if(popOpen)closePop();},{passive:true});
+
+var NOTES={
+ head:{h:"The header",w:"Your name, the exact job title you are applying for, and the two or three ways to reach you — including the portfolio link.",
+  good:"The job title matches the advert word for word. The portfolio link is written out so it can be read aloud, and it works on a phone. Email is firstname.lastname at a normal provider.",
+  bad:"Burying the portfolio link at the bottom, or writing “Portfolio available on request”. If a reviewer has to ask, they will not ask.",
+  check:"Would a stranger know within two seconds which job you want?"},
+ stmt:{h:"Personal statement",w:"Three or four lines saying who you are, what you are aiming at, and why this studio specifically.",
+  good:"Names the studio or the kind of work they do. States a specific direction rather than “any role in games”. Mentions one concrete thing you have made.",
+  bad:"“I am a hardworking and passionate individual with excellent communication skills.— Every applicant writes this, so it identifies nobody. Being passionate about games is assumed — it is why you applied.",
+  check:"Could this paragraph be pasted into anyone else's CV without changing a word? If yes, rewrite it."},
+ skills:{h:"Skills",w:"The software, engines and technical abilities you can actually use, grouped so they can be scanned.",
+  good:"Grouped by type. Named exactly as the industry names them. Honest levels, because everything here can be tested in an interview or a task.",
+  bad:"Star ratings and progress bars — nobody agrees what four stars means. Also: listing Microsoft Word. Assume basic computer literacy is a given.",
+  check:"Could you sit down at that software right now and do something useful in it? If not, it does not go on."},
+ proj:{h:"Projects",w:"The heart of a student CV, and the reason it goes above education. What you made, in what, with whom, and what part was yours.",
+  good:"Each entry names the tool, the timescale, the team size and your specific contribution. Finished work first. A link where one exists.",
+  bad:"“Worked on a group game project.— This tells a studio nothing and quietly claims the whole thing. Also: listing five unfinished projects instead of two finished ones.",
+  check:"For each line, can you say exactly what you personally made? If not, rewrite it until you can."},
+ edu:{h:"Education",w:"Your qualifications, most recent first, with the modules that are relevant to the job.",
+  good:"Course title, provider, dates, and the units that relate to the role. Grades if they help you. GCSEs compressed to a single line.",
+  bad:"Giving education the most space on the page. At this stage it is the least distinguishing thing about you — everyone applying has a course.",
+  check:"Is this section shorter than your projects section? It should be."},
+ work:{h:"Employment",w:"Any paid work, including work with nothing to do with games, framed for what it proves about you.",
+  good:"Named skills that transfer — working to a deadline under pressure, handling customers, reliability, keeping records. Studios read this as evidence you can hold down a job.",
+  bad:"Leaving it out because it “is not games”. A retail Saturday job shows you turn up, which matters more than students expect.",
+  check:"What does each job prove about how you work? Write that, not the duties."},
+ int:{h:"Interests and industry engagement",w:"The section most students waste. Used well, it shows you are already part of the industry rather than waiting outside it.",
+  good:"Game jams entered, communities you post in, dev events attended, tutorials you follow, things you make in your own time. Specific and checkable.",
+  bad:"“Socialising with friends, listening to music, watching films.— True of everyone, interesting to nobody, and it burns the one section where you could stand out.",
+  check:"Does anything here prove you make things when nobody is marking you?"},
+ refs:{h:"References",w:"Two people who have agreed in advance to confirm what you have claimed.",
+  good:"A tutor and an employer, with role and contact, both asked first. Named references make the rest of the CV verifiable.",
+  bad:"“References available on request” — everyone knows that, so it is a wasted line. Worse: naming someone who does not know they have been named.",
+  check:"Have you actually asked them, in writing, this term?"}
+};
+
+var ROLES=[
+ {id:"env",label:"Environment artist",
+  name:"Jamie Okonkwo",title:"Junior Environment Artist",
+  contact:"jamie.okonkwo@email.com · 07700 900014 · Manchester · artstation.com/jamieok · linkedin.com/in/jamieokonkwo",
+  stmt:"Level 3 Creative Media Practice student specialising in modular environment art in Unreal Engine 5. I build props and set dressing to a game-ready standard and document my process. Applying to Nightpost Games because your work on stylised interiors is the closest thing I have found to what I want to make.",
+  skills:[["3D","Blender, Autodesk Maya, ZBrush (sculpting basics)"],["Texturing","Substance Painter, Substance Designer, Photoshop"],["Engine","Unreal Engine 5 — Blueprints, Lumen, Nanite, material editor"],["Technical","UV unwrapping, retopology, baking, LOD creation, trim sheets"],["Other","Perforce basics, Trello, Miro"]],
+  projects:[
+   ["“Ashfield Station” — modular environment","Personal project · Unreal Engine 5 · 9 weeks · solo","Built a 14-piece modular kit and 22 props for a 1940s railway platform. Kept props under 8,000 triangles with shared trim sheets. Full breakdown and wireframes published on ArtStation."],
+   ["“Low Tide” — student game","College project · Unity · 6 weeks · team of 5","Sole environment artist. Modelled and textured the entire coastal level; wrote the asset naming convention the team used."],
+   ["Ludum Dare 56","48-hour game jam · team of 4","Produced all environment art in a day and a half. Game ranked in the top 40% for graphics."]],
+  edu:[["Level 3 National Extended Diploma, Creative Media Practice","Manchester College · 2024–2026 · predicted Distinction*","Relevant units: Advancing Creative Practice, Creative Industry Response, Personal Progression"],["GCSEs","9 including English (6), Maths (5), Art (7)",""]],
+  work:[["Sales assistant, Fenwick's","Sept 2024 — present, weekends","Handling customers under time pressure and covering shifts at short notice. Trained two new starters on the till system."]],
+  int:"Entered five game jams since 2024. Run a fortnightly Blender study group at college. Regular at Manchester Game Dev meetups. Currently working through a hard-surface modelling course in my own time.",
+  refs:"Ms A. Whitfield, Course Leader, Manchester College — a.whitfield@email.ac.uk<br>Mr D. Osei, Store Manager, Fenwick's — d.osei@email.com"},
+
+ {id:"prog",label:"Gameplay programmer",
+  name:"Priya Raman",title:"Junior Gameplay Programmer",
+  contact:"priya.raman@email.com · 07700 900187 · Leeds · github.com/priyaraman · priyaraman.dev",
+  stmt:"Level 3 Creative Media Practice student writing gameplay systems in C# and Unity, with a public repository of readable, commented work. I am strongest on player movement and state machines. Applying to Halden Interactive because your junior intake pairs new starters with a mentor, which is how I learn fastest.",
+  skills:[["Languages","C# (main), C++ (learning), Python for tools"],["Engines","Unity 6 — physics, animation state machines, ScriptableObjects; Unreal 5 — Blueprints"],["Tools","Git and GitHub, Visual Studio, Rider, Jira"],["Practice","Object-oriented design, debugging and profiling, code review, unit testing basics"]],
+  projects:[
+   ["“Rooftop Run” — 2D platformer","Personal project · Unity · 12 weeks · solo · playable build online","Built coyote-time jumping, wall slides and a checkpoint system. Refactored the player controller three times; each version is a tagged release in the repository so the progression is visible."],
+   ["“Low Tide” — student game","College project · Unity · 6 weeks · team of 5","Wrote the save system and the interaction framework other team members built on. Ran the code reviews."],
+   ["Tool: batch sprite slicer","Personal project · Python · 2 weeks","Small editor tool that cut a 40-minute manual task to under a minute for my team. Documented in the repository README."]],
+  edu:[["Level 3 National Extended Diploma, Creative Media Practice","Leeds City College · 2024–2026 · predicted Distinction","Relevant units: Advancing Creative Practice, Creative Industry Response"],["GCSEs","8 including Maths (7), English (6), Computer Science (7)",""]],
+  work:[["Kitchen porter, The Bell","July 2024 — present, evenings","Fast-paced service with strict timing. Reliable across a fixed rota for eighteen months."]],
+  int:"Three game jams, including one where I was the only programmer on a team of five. Post devlogs on my site. Working through a C++ course to prepare for engine-side work.",
+  refs:"Mr T. Byrne, Course Leader, Leeds City College — t.byrne@email.ac.uk<br>Ms L. Fitzgerald, Manager, The Bell — l.fitzgerald@email.com"},
+
+ {id:"des",label:"Games designer",
+  name:"Callum Reid",title:"Junior Games Designer",
+  contact:"callum.reid@email.com · 07700 900233 · Dundee · callumreid.design · itch.io/profile/callumreid",
+  stmt:"Level 3 Creative Media Practice student focused on level and systems design, with written design documentation for each project and three playable builds online. Applying to Nightpost Games because a small team means design decisions get tested quickly, which is how I want to learn.",
+  skills:[["Design","Level blockouts, systems design, economy balancing, playtesting and iteration"],["Documentation","Design documents, flowcharts, spreadsheets for balancing, Miro"],["Engines","Unity 6, Unreal Engine 5 Blueprints, Tiled"],["Supporting","Blender for blockouts, Figma for UI wireframes, basic C#"]],
+  projects:[
+   ["“Grain” — resource management prototype","Personal project · Unity · 10 weeks · solo · playable build","Designed and balanced a three-resource economy. Ran seven playtests with twelve players, logged the results and published the balance spreadsheet alongside the design document."],
+   ["“Low Tide” — student game","College project · Unity · 6 weeks · team of 5","Lead designer. Wrote the design document, blocked out all three levels and ran weekly playtests. Cut a whole mechanic after testing showed players never used it."],
+   ["“Signal” — narrative jam entry","Global Game Jam · team of 4","Designed the branching structure and wrote the dialogue. Kept scope to what four people could finish in 48 hours."]],
+  edu:[["Level 3 National Extended Diploma, Creative Media Practice","Dundee and Angus College · 2024–2026 · predicted Distinction","Relevant units: Advancing Creative Practice, Creative Industry Response"],["National 5s and Highers","7 including English (A), Maths (B), Computing (A)",""]],
+  work:[["Crew member, Odeon","Jan 2025 — present, weekends","Customer-facing work at busy times. Volunteered for the opening shift rota."]],
+  int:"Four game jams. Write short design breakdowns of games I have played on my site — nineteen so far. Attend Dundee games meetups. Play tabletop games specifically to study their rules design.",
+  refs:"Mrs K. Lindsay, Course Leader, Dundee and Angus College — k.lindsay@email.ac.uk<br>Mr S. Ahmed, Duty Manager, Odeon — s.ahmed@email.com"},
+
+ {id:"anim",label:"3D animator",
+  name:"Sofia Marchetti",title:"Junior Animator",
+  contact:"sofia.marchetti@email.com · 07700 900341 · Guildford · sofiamarchetti.com · vimeo.com/sofiamarchetti",
+  stmt:"Level 3 Creative Media Practice student specialising in gameplay animation, with an 80-second reel of cycles and combat actions. I animate to a brief and iterate from feedback. Applying to Corvid Studios because your combat animation is the standard I am working towards.",
+  skills:[["Animation","Autodesk Maya, keyframe animation, cycles, blend trees, animation layers"],["Engine","Unity 6 — Animator controller, root motion; Unreal 5 — animation Blueprints"],["Supporting","Blender, rigging basics, motion capture cleanup, Adobe Premiere for reel editing"],["Practice","Reference shooting, weight and timing, feedback iteration, in-engine review"]],
+  projects:[
+   ["Showreel 2026","80 seconds · Maya and Unreal 5","Twelve shots: run, sprint, jump-land, three-hit melee combo, two idles, hit reactions. Strongest shot first. Breakdown of the combo shot published separately."],
+   ["“Low Tide” — student game","College project · Unity · 6 weeks · team of 5","Animated the player character — nine states, all blended in-engine. Reworked the jump three times after playtest feedback said the landing felt weightless."],
+   ["Reference study series","Personal project · ongoing","Filmed my own reference for every shot in the reel. Side-by-side reference and animation published for four of the shots."]],
+  edu:[["Level 3 National Extended Diploma, Creative Media Practice","Guildford College · 2024–2026 · predicted Distinction","Relevant units: Advancing Creative Practice, Creative Industry Response"],["GCSEs","9 including English (7), Maths (5), Art (8)",""]],
+  work:[["Swimming teaching assistant, Spectrum Leisure","Sept 2024 — present, Saturdays","Teaching children in groups of eight. Breaking down a physical movement so a beginner can follow it — directly useful for explaining animation intent."]],
+  int:"Two 11 Second Club entries. Member of a Discord animation critique group where I post work-in-progress weekly. Sketch weekly from life to study weight and balance.",
+  refs:"Mr J. Farrow, Course Leader, Guildford College — j.farrow@email.ac.uk<br>Ms R. Coyle, Centre Manager, Spectrum Leisure — r.coyle@email.com"},
+
+ {id:"qa",label:"QA tester",
+  name:"Danny Whelan",title:"Junior QA Tester",
+  contact:"danny.whelan@email.com · 07700 900472 · Warrington · dannywhelan.itch.io · linkedin.com/in/dannywhelan",
+  stmt:"Level 3 Creative Media Practice student aiming at games QA as a route into production. I write clear, reproducible bug reports and have tested three student projects to a written test plan. Applying to Halden Interactive because QA at a work-for-hire studio means seeing a lot of different projects quickly.",
+  skills:[["QA practice","Test plans, test cases, reproduction steps, severity rating, regression testing"],["Tools","Jira, TestRail basics, Trello, Excel and Google Sheets, Notion"],["Technical","Unity and Unreal builds, Android and PC deployment, reading console logs, basic C#"],["Written","Bug reports, structured feedback, playtest summaries"]],
+  projects:[
+   ["QA on “Low Tide”","College project · Unity · 6 weeks · team of 5","Wrote a 40-case test plan and logged 61 bugs in Jira with reproduction steps. Ran a regression pass before each build. Kept a triage sheet the team used to prioritise fixes."],
+   ["Playtest programme","Personal project · 8 weeks","Organised and ran playtests of three classmates' games with fourteen external players. Produced a written summary and a prioritised issue list for each."],
+   ["“Signal” — jam entry","Global Game Jam · team of 4","Handled build testing across two machines and caught a save-corruption bug two hours before submission."]],
+  edu:[["Level 3 National Extended Diploma, Creative Media Practice","Warrington and Vale Royal College · 2024–2026 · predicted Merit","Relevant units: Advancing Creative Practice, Creative Industry Response"],["GCSEs","8 including English (6), Maths (6)",""]],
+  work:[["Warehouse operative, Kingsley Logistics","June 2024 — present, part-time","Stock accuracy checks against a manifest, working to a documented process. Zero picking errors recorded across the last two quarters."]],
+  int:"Play across a wide range of genres deliberately, including ones I do not enjoy, because QA is not the same as being a fan. Two game jams as tester and producer. Follow QA discussion on games industry forums.",
+  refs:"Mr P. Doran, Course Leader, Warrington and Vale Royal College — p.doran@email.ac.uk<br>Ms H. Njoku, Supervisor, Kingsley Logistics — h.njoku@email.com"}
+];
+
+var current=ROLES[0], active=null;
+
+function renderRolebar(){
+  $("rolebar").innerHTML=ROLES.map(function(r){
+    return '<button class="rb" data-r="'+r.id+'" aria-pressed="'+(r.id===current.id)+'">'+r.label+'</button>';
+  }).join("");
+  $("rolebar").querySelectorAll(".rb").forEach(function(b){
+    b.addEventListener("click",function(){
+      current=ROLES.filter(function(r){return r.id===b.dataset.r;})[0];
+      renderRolebar(); renderCV(); active=null; resetNote();
+    });
+  });
+}
+
+function sec(key,inner){return '<button class="sec" data-s="'+key+'" aria-pressed="false">'+inner+'</button>';}
+
+function renderCV(){
+  var r=current;
+  var html="";
+  html+=sec("head",'<p class="nm">'+r.name+'</p><p class="rl">'+r.title+'</p><p class="ct">'+r.contact+'</p>');
+  html+=sec("stmt",'<h4>Profile</h4><p>'+r.stmt+'</p>');
+  html+=sec("skills",'<h4>Skills</h4>'+r.skills.map(function(s){
+    return '<div class="skillrow"><b>'+s[0]+'</b><span>'+s[1]+'</span></div>';}).join(""));
+  html+=sec("proj",'<h4>Projects</h4>'+r.projects.map(function(p){
+    return '<p style="margin-bottom:8px"><span class="ttl">'+p[0]+'</span><br><span class="meta">'+p[1]+'</span><br>'+p[2]+'</p>';}).join(""));
+  html+=sec("edu",'<h4>Education</h4>'+r.edu.map(function(e){
+    return '<p style="margin-bottom:6px"><span class="ttl">'+e[0]+'</span><br><span class="meta">'+e[1]+'</span>'+(e[2]?'<br>'+e[2]:'')+'</p>';}).join(""));
+  html+=sec("work",'<h4>Employment</h4>'+r.work.map(function(w){
+    return '<p><span class="ttl">'+w[0]+'</span><br><span class="meta">'+w[1]+'</span><br>'+w[2]+'</p>';}).join(""));
+  html+=sec("int",'<h4>Interests and industry engagement</h4><p>'+r.int+'</p>');
+  html+=sec("refs",'<h4>References</h4><p>'+r.refs+'</p>');
+  $("cv").innerHTML=html;
+  $("cv").querySelectorAll(".sec").forEach(function(b){
+    b.addEventListener("click",function(e){
+      if(e.target.closest(".gl"))return;
+      $("cv").querySelectorAll(".sec").forEach(function(x){x.setAttribute("aria-pressed",String(x===b));});
+      showNote(b.dataset.s);
+      if(window.innerWidth<900)$("note").scrollIntoView({behavior:"smooth",block:"nearest"});
+    });
+  });
+}
+
+function resetNote(){
+  $("note").innerHTML='<p class="idle">Tap a section of the CV to see what it is for, what a good one looks like, and the mistake that gets made most often.</p>';
+}
+function showNote(k){
+  var n=NOTES[k];
+  $("note").innerHTML='<h3>'+n.h+'</h3><p class="what">'+n.w+'</p><dl>'+
+    '<dt class="do">What a strong one does</dt><dd>'+n.good+'</dd>'+
+    '<dt class="dont">The usual mistake</dt><dd>'+n.bad+'</dd>'+
+    '<dt>Check yours</dt><dd>'+n.check+'</dd></dl>';
+}
+
+var QUIZ=[
+ {q:"Under Skills, on an artist's CV",
+  a:["Good at 3D modelling and texturing",
+     "Blender, Maya, Substance Painter — modelling, UV unwrapping, PBR texturing"],
+  right:1,
+  fb:"The second names things a studio can search for and test. “Good at” is a self-assessment, and nobody hires on a self-assessment. Software names are also what a keyword filter is scanning for."},
+ {q:"Describing a team project",
+  a:["Sole programmer on a four-person jam team. Built the checkpoint and respawn system in C# over 48 hours.",
+     "Worked as part of a team to create a game for a game jam."],
+  right:0,
+  fb:"The first states the team size, your role, the language, the system you built and the timescale. The second could describe someone who watched. On a team project, always name your own contribution — vagueness reads as claiming everything."},
+ {q:"Opening line of a personal statement",
+  a:["I am a hardworking and passionate individual with excellent communication skills who has always loved games.",
+     "Level 3 Creative Media Practice student specialising in modular environment art in Unreal Engine 5."],
+  right:1,
+  fb:"The first is on almost every CV in the pile, so it distinguishes nobody. Passion for games is assumed — it is why you applied. The second says what you do within eight words."},
+ {q:"Under Interests",
+  a:["Socialising with friends, listening to music and watching films.",
+     "Five game jams since 2024. Run a fortnightly Blender study group at college. Regular at Manchester Game Dev meetups."],
+  right:1,
+  fb:"This is the section students waste most often. Used properly it is proof you make things when nobody is marking you, which is exactly what studios are trying to find out."},
+ {q:"Your email address",
+  a:["jamie.okonkwo@email.com",
+     "xX_shadowreaper_Xx@email.com"],
+  right:0,
+  fb:"It sounds trivial and it is not. The address sits at the top of the page and sets the tone before anything else is read. Make one in your own name; it takes two minutes."},
+ {q:"Where the portfolio link goes",
+  a:["In the header, written out in full, next to your email",
+     "At the end, under a heading saying “Portfolio available on request”"],
+  right:0,
+  fb:"The entire job of the CV is to get the portfolio opened. If a reviewer has to ask, or scroll, they will do neither. “Available on request” wastes the most valuable line on the page."},
+ {q:"Describing a personal project",
+  a:["Made a small platformer game in Unity in my spare time.",
+     "“Rooftop Run” — Unity, 12 weeks, solo, playable build online. Built coyote-time jumping, wall slides and a checkpoint system."],
+  right:1,
+  fb:"Named, dated, scoped, and linked to something playable. “In my spare time” also quietly undersells it — a twelve-week solo project is work, so describe it as work."},
+ {q:"File you send",
+  a:["Danny-Whelan-CV.pdf",
+     "cv final FINAL v3 (2).docx"],
+  right:0,
+  fb:"A PDF looks the same on every machine; a Word file reflows and breaks. The filename is also seen by the person filing it, and it is the first evidence of whether you organise things."}
+];
+var qi=0,qscore=0;
+
+function renderQuiz(){
+  if(qi>=QUIZ.length){
+    var msg = qscore===QUIZ.length ? "Full marks. Now the hard part: applying the same judgement to your own writing, where you are much less objective."
+      : qscore>=QUIZ.length-2 ? "Strong. The ones people miss are usually the small-looking ones — the email address and the filename — which are exactly the details reviewers read as carelessness."
+      : "Worth going through again. The pattern in every answer is the same: specific beats general, and evidence beats claims.";
+    $("quizbox").innerHTML='<p class="qq">'+qscore+' out of '+QUIZ.length+'</p><p style="font-size:15px;color:var(--ink-soft)">'+msg+'</p><button class="btn" id="requiz" style="margin-top:8px">Start again</button>';
+    $("requiz").addEventListener("click",function(){qi=0;qscore=0;renderQuiz();});
+    return;
+  }
+  var q=QUIZ[qi];
+  $("quizbox").innerHTML='<p class="qcount">Question '+(qi+1)+' of '+QUIZ.length+'</p><p class="qq">'+q.q+'</p>'+
+    q.a.map(function(t,i){return '<button class="opt" data-i="'+i+'">'+t+'</button>';}).join("")+
+    '<div class="fb" hidden id="fb"></div><p class="score">Score: '+qscore+'</p>';
+  $("quizbox").querySelectorAll(".opt").forEach(function(b){
+    b.addEventListener("click",function(){
+      var i=+b.dataset.i,ok=(i===q.right);
+      if(ok)qscore++;
+      $("quizbox").querySelectorAll(".opt").forEach(function(x){
+        x.disabled=true;
+        if(+x.dataset.i===q.right)x.classList.add("right");
+        else if(x===b)x.classList.add("wrong");
+      });
+      var fb=$("fb");
+      fb.innerHTML="<b>"+(ok?"Correct":"Not quite")+"</b>"+q.fb+
+        '<div style="margin-top:12px"><button class="btn" id="next">'+(qi===QUIZ.length-1?"See your score":"Next question")+'</button></div>';
+      fb.hidden=false;
+      $("next").addEventListener("click",function(){qi++;renderQuiz();});
+    });
+  });
+}
+
+var CHECKS=[
+ ["The exact job title you are applying for","Copy it word for word from a real advert. Find one before the lesson — do not invent a title."],
+ ["A working portfolio link","Open it on a phone, logged out of everything, and time how long it takes to load."],
+ ["A professional email address","Firstname.lastname if you can get it. Check you can log into it."],
+ ["Three projects, with the details","For each: what tool, how long, team size, and the specific part you made. Write it out before class — you will not remember the numbers."],
+ ["Your software list, honestly rated","Only what you could sit down and use today. Every item can be tested at interview."],
+ ["Your qualifications and relevant units","Course title, provider, dates, predicted grade, and which units relate to the role."],
+ ["Any paid work, and what it proves","Not the duties. What it demonstrates about how you work."],
+ ["Evidence you make things unprompted","Jams, communities, personal projects, meetups, courses you chose to do."],
+ ["Two references, already asked","Message them this week. A referee who is surprised is worse than no referee."],
+ ["A studio you actually want to work for","You cannot write a targeted statement without one. Pick a real UK studio and read their site."]
+];
+$("check").innerHTML=CHECKS.map(function(c,i){
+  return '<div class="ci"><input type="checkbox" id="c'+i+'"><label for="c'+i+'"><b>'+c[0]+'</b><span>'+c[1]+'</span></label></div>';
+}).join("");
+
+document.querySelectorAll(".hero p, .lede, .card li").forEach(function(el){el.innerHTML=gloss(el.innerHTML);});
+renderRolebar(); renderCV(); renderQuiz();
+</script>
+</body>
+</html>

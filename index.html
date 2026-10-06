@@ -128,10 +128,12 @@ section.blk{padding:46px 0;border-bottom:1px solid var(--line)}
 
 .btn{font-family:"Space Grotesk";font-weight:500;background:transparent;color:var(--ink);border:1.5px solid var(--line);border-radius:4px;padding:11px 20px}
 .btn:hover{background:#DBDFE4}
+.btn-go{display:inline-block;text-decoration:none;background:var(--accent);border-color:var(--accent);color:#fff;margin-right:10px}
+.btn-go:hover{background:#1F4AC4;border-color:#1F4AC4}
 footer{padding:34px 0 70px;color:var(--dim);font-size:13.5px}
 footer p{margin:0 0 8px;max-width:74ch}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
-@media print{.hero,.jump,.rolebar,.note,#quiz,#pop{display:none}.cv{border:none;padding:0}.cvgrid{grid-template-columns:1fr}}
+@media print{.btn-go,.hero,.jump,.rolebar,.note,#quiz,#pop{display:none}.cv{border:none;padding:0}.cvgrid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -149,6 +151,7 @@ footer p{margin:0 0 8px;max-width:74ch}
       <a href="#rules">Rules and myths</a>
       <a href="#links">Where to read more</a>
       <a href="#build">Your checklist</a>
+      <a href="cv-builder.html">CV Builder →</a>
     </nav>
   </div>
 </header>
@@ -244,7 +247,8 @@ footer p{margin:0 0 8px;max-width:74ch}
     <div class="head"><span class="tag">Next lesson</span><h2>Before you write yours</h2></div>
     <p class="lede">You will build your own CV in class. Bring the answers to these, because you cannot write a good CV from memory — the specifics are what make it work, and the specifics are what you will not remember.</p>
     <div class="check" id="check"></div>
-    <p style="margin-top:16px"><button class="btn" onclick="window.print()">Print the checklist</button></p>
+    <p style="margin-top:16px"><a class="btn btn-go" href="cv-builder.html">Open the CV Builder →</a><button class="btn" onclick="window.print()">Print the checklist</button></p>
+    <p class="lede" style="margin-top:14px">When you have the answers, the <a href="cv-builder.html">CV Builder</a> is where you write yours: a first version with no help, a check of what it gets wrong, then a rebuilt one you can print.</p>
   </div>
 </section>
 

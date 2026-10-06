@@ -14,6 +14,10 @@ Built for **Unit B1 Phase 3 — creating materials for career progression using 
 - **Where to read more** — eight free, UK-focused, checked links (Grads in Games, Skillsearch, Into Games, ScreenSkills ×2, Prospects, National Careers Service, Ukie) for CV writing and role research.
 - **Your checklist** — ten concrete things to bring to the next lesson before writing an own CV, each with a note on why it has to be prepared in advance rather than written from memory.
 
+## CV Builder
+
+[`cv-builder.html`](https://jamesbell2021.github.io/bmet-the-cv/cv-builder.html) is the in-class follow-on to this page. Students write a CV with no help, lock it, see where it fails the twenty-second read, then rebuild it properly and export both versions. The gap between the two is their evidence for AC2, AC3 and AC4. The guide links to the builder from its menu and checklist, and the builder links back to the guide. Drafts are saved in the browser and nothing is uploaded.
+
 As with the companion page [Breaking In](https://github.com/jamesbell2021/bmet-breaking-in), dotted-underline terms are tappable jargon explanations.
 
 ## Using it in class

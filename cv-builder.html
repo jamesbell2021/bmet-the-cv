@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CV Builder — Unit B1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F2E8; --ink:#1B1533;
+  --orange:#FF5A1F; --teal:#00A6A6; --yellow:#FFC93C; --pink:#F0468C;
+  --soft:#4A4166; --dim:#7C7395;
+  --shadow:5px 5px 0 var(--ink); --shadow-sm:3px 3px 0 var(--ink);
+  --border:3px solid var(--ink); --border-sm:2px solid var(--ink);
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --cv:#1B1533;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;
+  background-image:radial-gradient(var(--ink) .5px,transparent .5px);background-size:22px 22px}
+h1,h2,h3,h4{font-family:var(--disp);font-weight:800;letter-spacing:-.02em;line-height:1}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+button{font:inherit;cursor:pointer}
+a{color:var(--ink)}
+:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
+
+.titlescreen{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 20px;position:relative}
+.kicker{font-family:var(--mono);font-size:13px;letter-spacing:.22em;text-transform:uppercase;background:var(--ink);color:var(--paper);padding:7px 14px;margin-bottom:22px;display:inline-block}
+.titlescreen h1{font-size:clamp(44px,11vw,118px);margin:0;text-transform:uppercase}
+.titlescreen h1 em{font-style:normal;display:block;color:var(--orange);-webkit-text-stroke:2px var(--ink)}
+.titlescreen .sub{max-width:48ch;margin:24px 0 32px;font-size:18px}
+.blob{position:absolute;border:var(--border);z-index:-1}
+.b1{width:120px;height:120px;background:var(--teal);border-radius:50%;top:12%;left:8%}
+.b2{width:80px;height:80px;background:var(--pink);top:22%;right:11%;transform:rotate(14deg)}
+.b3{width:150px;height:44px;background:var(--orange);bottom:16%;left:14%;transform:rotate(-7deg)}
+.b4{width:60px;height:60px;background:var(--yellow);border-radius:50%;bottom:24%;right:16%}
+@media (max-width:640px){.blob{display:none}}
+
+.btn{background:var(--yellow);border:var(--border);box-shadow:var(--shadow);padding:15px 30px;font-family:var(--disp);font-weight:800;font-size:19px;text-transform:uppercase;transition:transform .1s,box-shadow .1s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
+.btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+.btn-sm{padding:10px 18px;font-size:14px;box-shadow:var(--shadow-sm)}
+.btn-t{background:var(--teal);color:#fff}
+.btn-o{background:var(--orange);color:#fff}
+.btn-g{background:#fff}
+
+.nav{position:sticky;top:0;z-index:30;background:var(--ink);border-bottom:var(--border)}
+.nav-in{max-width:1120px;margin:0 auto;padding:9px 20px;display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.nav-btn{background:transparent;border:2px solid transparent;color:#C9C2E0;font-family:var(--mono);font-size:12px;letter-spacing:.03em;padding:7px 10px;text-transform:uppercase}
+.nav-btn:hover{color:var(--paper);border-color:var(--soft)}
+.nav-btn[aria-current="true"]{background:var(--yellow);color:var(--ink);border-color:var(--yellow)}
+.nav-btn[disabled]{opacity:.35;cursor:not-allowed}
+.nav-btn .n{color:var(--teal)}
+#saveState{margin-left:auto;font-family:var(--mono);font-size:11px;color:#8E86A8}
+
+.page{padding:44px 0 80px}
+.page[hidden]{display:none}
+.tag{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;background:var(--ink);color:var(--paper);padding:5px 11px;margin-bottom:14px}
+.page h2{font-size:clamp(28px,5.5vw,46px);margin:0 0 14px;text-transform:uppercase}
+.page h2 em{font-style:normal;color:var(--orange)}
+.page h3{font-size:22px;margin:32px 0 12px}
+.lede{font-size:17.5px;max-width:64ch;margin:0 0 26px}
+
+.card{background:#fff;border:var(--border);box-shadow:var(--shadow);padding:20px 22px;margin-bottom:16px}
+.card h4{font-size:18px;margin:0 0 8px}
+.card p:last-child,.card ul:last-child{margin-bottom:0}
+.tint-o{background:var(--orange);color:#fff}
+.tint-t{background:var(--teal);color:#fff}
+.tint-y{background:var(--yellow)}
+.tint-p{background:var(--pink);color:#fff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+@media (max-width:760px){.grid2{grid-template-columns:1fr}}
+
+/* forms */
+.field{margin-bottom:14px}
+.field label{display:block;font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;margin-bottom:5px}
+.field input,.field textarea{width:100%;border:var(--border-sm);background:#fff;padding:10px 12px;font:inherit;font-size:15px;color:var(--ink)}
+.field textarea{min-height:76px;resize:vertical}
+.field input:focus,.field textarea:focus{border-color:var(--orange)}
+.hint{font-size:13px;color:var(--dim);margin:5px 0 0}
+.hint b{color:var(--ink);font-weight:600}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:620px){.row{grid-template-columns:1fr}}
+
+.rep{background:#fff;border:var(--border);box-shadow:var(--shadow-sm);padding:14px 16px;margin-bottom:10px;position:relative}
+.rep .del{position:absolute;top:10px;right:10px;background:var(--pink);color:#fff;border:var(--border-sm);width:26px;height:26px;font-family:var(--disp);font-weight:700;line-height:1;padding:0}
+
+/* builder layout */
+.build{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
+@media (max-width:980px){.build{grid-template-columns:1fr}}
+.pane{background:var(--paper);border:var(--border);box-shadow:var(--shadow);padding:20px}
+.preview-wrap{position:sticky;top:76px}
+@media (max-width:980px){.preview-wrap{position:static}}
+
+/* the CV document itself — deliberately plain */
+.cvdoc{background:#fff;border:var(--border);box-shadow:var(--shadow);padding:30px 32px;font-size:12.5px;line-height:1.5;color:#1a1a1a;font-family:"IBM Plex Sans",Arial,sans-serif}
+.cvdoc .nm{font-size:25px;font-weight:600;letter-spacing:-.01em;margin:0;line-height:1.1;color:#111}
+.cvdoc .rl{font-size:13.5px;color:var(--cv);font-weight:600;margin:3px 0 7px}
+.cvdoc .ct{font-size:11.5px;color:#444;margin:0 0 4px;word-break:break-word}
+.cvdoc hr{border:none;border-top:2px solid var(--cv);margin:12px 0}
+.cvdoc h5{font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--cv);margin:14px 0 6px;font-weight:600;font-family:"IBM Plex Sans",Arial,sans-serif}
+.cvdoc p{margin:0 0 6px}
+.cvdoc .it{margin-bottom:8px}
+.cvdoc .it .t{font-weight:600}
+.cvdoc .it .m{color:#555;font-size:11.5px}
+.cvdoc .sk{display:flex;gap:10px;margin-bottom:4px}
+.cvdoc .sk b{min-width:92px;font-weight:600;font-size:11.5px}
+.cvdoc .sk span{font-size:11.5px;color:#333}
+.cvdoc .empty{color:#bbb;font-style:italic}
+
+/* diagnostic */
+.diag{background:#fff;border:var(--border);box-shadow:var(--shadow-sm);padding:16px 18px;margin-bottom:10px;border-left-width:8px}
+.diag.bad{border-left-color:var(--pink)}
+.diag.warn{border-left-color:var(--yellow)}
+.diag.good{border-left-color:var(--teal)}
+.diag h4{margin:0 0 5px;font-size:16px}
+.diag p{margin:0;font-size:14.5px;color:var(--soft)}
+.diag .verdict{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;float:right;margin-left:10px}
+.diag.bad .verdict{background:var(--pink);color:#fff}
+.diag.warn .verdict{background:var(--yellow)}
+.diag.good .verdict{background:var(--teal);color:#fff}
+
+.score{background:var(--ink);color:#fff;border:var(--border);box-shadow:5px 5px 0 var(--orange);padding:22px 24px;margin-bottom:20px}
+.score .big{font-family:var(--disp);font-weight:800;font-size:56px;line-height:1;color:var(--yellow)}
+.score p{margin:6px 0 0;color:#C9C2E0;font-size:15px}
+.meter{height:12px;background:#E8E4DC;border:var(--border-sm);margin:8px 0 0}
+.meter i{display:block;height:100%;background:var(--teal);width:0;transition:width .4s}
+
+.swatches{display:flex;gap:8px;flex-wrap:wrap}
+.sw{width:34px;height:34px;border:var(--border-sm);padding:0}
+.sw[aria-pressed="true"]{outline:3px solid var(--ink);outline-offset:2px}
+
+.lockbox{background:var(--pink);color:#fff;border:var(--border);box-shadow:var(--shadow);padding:20px 22px;margin-bottom:18px}
+.lockbox h4{margin:0 0 6px;font-size:19px}
+.lockbox p{margin:0;font-size:15px}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(140%);z-index:60;background:var(--ink);color:var(--paper);border:var(--border);box-shadow:5px 5px 0 var(--orange);padding:12px 20px;transition:transform .35s cubic-bezier(.2,.8,.3,1);text-align:center}
+.toast.up{transform:translateX(-50%) translateY(0)}
+.toast .l{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--yellow);text-transform:uppercase}
+.toast .m{font-family:var(--disp);font-weight:700;font-size:16px}
+
+.site-footer{border-top:var(--border);padding:24px 0 80px;font-size:13.5px;color:var(--soft)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+@media print{
+  body{background:#fff;background-image:none}
+  .nav,.titlescreen,.toast,.page,.site-footer{display:none!important}
+  #printArea{display:block!important}
+  #printArea .cvdoc{border:none;box-shadow:none;padding:0;font-size:11pt}
+  @page{size:A4;margin:14mm}
+}
+#printArea{display:none}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"><div class="l">Saved</div><div class="m"></div></div>
+
+<div class="titlescreen" id="title">
+  <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="blob b4"></span>
+  <span class="kicker">Unit B1 · AC3 · AC4 · Deliverable: CV</span>
+  <h1>CV<em>Builder</em></h1>
+  <p class="sub">You are going to write a bad CV on purpose, find out exactly what is wrong with it, and then build a real one. The gap between the two is your evidence — so do not skip straight to the end.</p>
+  <button class="btn" id="start">▶ Start round one</button>
+</div>
+
+<div id="shell" hidden>
+<nav class="nav"><div class="nav-in">
+  <button class="nav-btn" data-p="p1"><span class="n">01</span> Round one</button>
+  <button class="nav-btn" data-p="p2" disabled><span class="n">02</span> The 20 seconds</button>
+  <button class="nav-btn" data-p="p3" disabled><span class="n">03</span> What works</button>
+  <button class="nav-btn" data-p="p4" disabled><span class="n">04</span> Build it properly</button>
+  <button class="nav-btn" data-p="p5" disabled><span class="n">05</span> Export</button>
+  <span id="saveState">not saved</span>
+</div></nav>
+
+<!-- ============ 01 ROUND ONE ============ -->
+<section class="page" id="p1" hidden><div class="wrap">
+  <span class="tag">01 — Round one</span>
+  <h2>Write a CV. <em>No help.</em></h2>
+  <p class="lede">Ten minutes. No guidance, no examples, no rules — just the boxes. Write whatever you think belongs in a CV. It will probably be weak, and that is the entire point: this is the version we measure the second one against.</p>
+
+  <div class="lockbox">
+    <h4>This gets locked</h4>
+    <p>When you finish round one it is saved and you cannot edit it again. Do not try to make it good. A dishonest version 1 destroys your own best evidence — the same way quietly improving your first logo does.</p>
+  </div>
+
+  <div class="pane">
+    <div id="v1form"></div>
+    <button class="btn btn-o" id="lockV1" style="margin-top:10px">Lock it and see the damage</button>
+  </div>
+</div></section>
+
+<!-- ============ 02 DIAGNOSTIC ============ -->
+<section class="page" id="p2" hidden><div class="wrap">
+  <span class="tag">02 — The 20 seconds</span>
+  <h2>What a recruiter <em>saw</em></h2>
+  <p class="lede">Your version 1, checked against the things people actually scan for. These are not opinions about your writing — they are mechanical checks, and every one of them is something a real reviewer notices in the first few seconds.</p>
+  <div class="score" id="v1score"></div>
+  <div id="v1diag"></div>
+  <p style="margin-top:20px"><button class="btn btn-t" id="toRules">Right — show me what actually works</button></p>
+</div></section>
+
+<!-- ============ 03 RULES ============ -->
+<section class="page" id="p3" hidden><div class="wrap">
+  <span class="tag">03 — What works</span>
+  <h2>Nine rules that <em>do the work</em></h2>
+  <p class="lede">Not style preferences. These are the things that decide whether a games studio reads past your header.</p>
+  <div id="rules"></div>
+  <p style="margin-top:20px"><button class="btn" id="toBuild">Build version 2</button></p>
+</div></section>
+
+<!-- ============ 04 BUILDER ============ -->
+<section class="page" id="p4" hidden><div class="wrap">
+  <span class="tag">04 — Build it properly</span>
+  <h2>Version <em>two</em></h2>
+  <p class="lede">Same boxes, with coaching attached and a live preview. The strength meter uses the same checks that judged version 1, so you can watch it climb.</p>
+
+  <div class="score" id="v2score" style="margin-bottom:18px"></div>
+
+  <div class="build">
+    <div class="pane">
+      <div class="field">
+        <label>Accent colour for your CV</label>
+        <div class="swatches" id="swatches"></div>
+        <p class="hint">Use the same colour as your logo and website. One identity across everything is what the unit is marked on.</p>
+      </div>
+      <div id="v2form"></div>
+    </div>
+    <div class="preview-wrap">
+      <div id="preview"></div>
+      <p style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-sm btn-t" id="goExport">Finished — export it</button>
+        <button class="btn btn-sm btn-g" id="quickPrint">Print preview</button>
+      </p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============ 05 EXPORT ============ -->
+<section class="page" id="p5" hidden><div class="wrap">
+  <span class="tag">05 — Export</span>
+  <h2>Get it <em>out of here</em></h2>
+  <p class="lede">Nothing here is stored on a server. Export it, keep it, and put both versions in your evidence.</p>
+
+  <div class="grid3">
+    <div class="card tint-t">
+      <h4>1. Save as PDF</h4>
+      <p>Print, then choose <strong>Save as PDF</strong> as the destination. Name it <strong>Firstname-Lastname-CV.pdf</strong>. Never send a Word file — it reflows on someone else's machine.</p>
+      <p style="margin-top:10px"><button class="btn btn-sm btn-g" id="printBtn">Print / Save as PDF</button></p>
+    </div>
+    <div class="card tint-y">
+      <h4>2. Download your data</h4>
+      <p>A small file with both versions in it. Keep it — you will want to edit this CV for every application you make.</p>
+      <p style="margin-top:10px"><button class="btn btn-sm btn-g" id="dlBtn">Download both versions</button></p>
+    </div>
+    <div class="card tint-p">
+      <h4>3. Put it in your evidence</h4>
+      <p>Version 1, version 2, and a paragraph saying what changed and why. That paragraph is worth more marks than the CV itself.</p>
+    </div>
+  </div>
+
+  <h3>Before you call it done</h3>
+  <div id="finalCheck"></div>
+
+  <div class="card tint-o" style="margin-top:20px">
+    <h4>The write-up is the assessed part</h4>
+    <p>Open your reflective write-up and answer these: which checks did version 1 fail, which one surprised you, what did you change because of it, and what did you choose <em>not</em> to change and why. That last one is the Distinction question.</p>
+  </div>
+</div></section>
+
+<footer class="site-footer"><div class="wrap">
+  <p>Unit B1 — BTEC Level 3 Creative Media Practice (Game Development), Belfast Met. Feeds AC2 (iteration and response to feedback), AC3 (technical skill) and AC4 (professional practice). Everything runs in your browser; nothing is uploaded anywhere.</p>
+</div></footer>
+</div>
+
+<div id="printArea"></div>
+
+<script>
+var $=function(i){return document.getElementById(i);};
+var esc=function(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});};
+
+/* ---------- state ---------- */
+var BLANK=function(){return{
+  name:"",role:"",email:"",phone:"",location:"",portfolio:"",second:"",
+  profile:"",skills:[],projects:[],education:[],employment:[],interests:"",references:"",accent:"#1B1533"
+};};
+var S={v1:null,v2:BLANK(),locked:false,stage:1};
+
+function save(){
+  try{
+    localStorage.setItem("b1cv",JSON.stringify(S));
+    $("saveState").textContent="saved in this browser";
+  }catch(e){ $("saveState").textContent="not saved — export before you close"; }
+}
+function load(){
+  try{
+    var r=localStorage.getItem("b1cv");
+    if(r){ var o=JSON.parse(r); if(o&&o.v2){ S=o; return true; } }
+  }catch(e){}
+  return false;
+}
+var tt;
+function toast(m,l){var t=$("toast");t.querySelector(".m").textContent=m;
+  t.querySelector(".l").textContent=l||"Saved";t.classList.add("up");
+  clearTimeout(tt);tt=setTimeout(function(){t.classList.remove("up");},2400);}
+
+/* ---------- field definitions ---------- */
+var SIMPLE=[
+  ["name","Your name","text"],
+  ["role","Job title you are applying for","text"],
+  ["email","Email","text"],
+  ["phone","Phone","text"],
+  ["location","Location","text"],
+  ["portfolio","Portfolio link","text"],
+  ["second","Second link (GitHub, LinkedIn, ArtStation)","text"],
+  ["profile","Profile / personal statement","area"],
+  ["interests","Interests and industry engagement","area"],
+  ["references","References","area"]
+];
+var COACH={
+  name:"Exactly as you want to be called. No nicknames.",
+  role:"Copy it word for word from a real advert. <b>Not</b> \u201CGames Student\u201D \u2014 the job you want.",
+  email:"firstname.lastname if you can get it. It sits at the top of the page and sets the tone.",
+  phone:"Mobile. Make sure your voicemail does not embarrass you.",
+  location:"Town or city only. Never your full address \u2014 UK employers do not want it and it is a privacy risk.",
+  portfolio:"<b>The most important line on the page.</b> A public link that opens in one click. Not a file-sharing folder that asks permission.",
+  second:"GitHub for programmers, ArtStation for artists, LinkedIn for everyone.",
+  profile:"Three or four lines. Say what you <b>do</b> within the first eight words. Name the studio or the kind of work. Avoid \u201Chardworking\u201D, \u201Cpassionate\u201D and \u201Cteam player\u201D \u2014 everyone writes them, so they identify nobody.",
+  interests:"Jams, communities, meetups, personal projects, courses you chose to do. <b>Not</b> \u201Csocialising, music, films\u201D. This is where you prove you make things when nobody is marking you.",
+  references:"Two names, roles and emails \u2014 asked in advance. Never \u201Cavailable on request\u201D; it wastes a line everyone already assumes."
+};
+var REPEAT=[
+  {key:"skills",label:"Skills",add:"Add a skill group",
+   fields:[["cat","Group (e.g. 3D, Engine, Languages)"],["items","What you can use, named exactly as adverts name them"]],
+   coach:"Group them so they can be scanned. Name software the way the industry does \u2014 \u201CUnreal Engine 5\u201D, not \u201Cgame engines\u201D. No star ratings: nobody knows what four stars in Maya means."},
+  {key:"projects",label:"Projects",add:"Add a project",
+   fields:[["title","Project name"],["meta","Tool \u00b7 timescale \u00b7 team size \u00b7 link"],["detail","What you personally made"]],
+   coach:"<b>These go above education.</b> Every entry needs the tool, how long, the team size and your own specific contribution. \u201CWorked on a group game\u201D quietly claims all of it and five minutes of interview will expose that."},
+  {key:"education",label:"Education",add:"Add a qualification",
+   fields:[["title","Qualification"],["meta","Provider \u00b7 dates \u00b7 grade"],["detail","Relevant units"]],
+   coach:"Shorter than your projects section. Everyone applying has a course; it is the least distinguishing thing about you right now. Compress GCSEs to one line."},
+  {key:"employment",label:"Employment",add:"Add a job",
+   fields:[["title","Role"],["meta","Employer \u00b7 dates"],["detail","What it proves about how you work"]],
+   coach:"Include non-games work. Write what it <b>demonstrates</b> \u2014 deadlines under pressure, reliability, handling customers \u2014 not the duties. A Saturday job shows you turn up, which matters more than students expect."}
+];
+
+/* ---------- forms ---------- */
+function simpleField(d,f,coach){
+  var k=f[0],lab=f[1],type=f[2];
+  var v=esc(d[k]);
+  var h=coach&&COACH[k]?'<p class="hint">'+COACH[k]+'</p>':'';
+  var input = type==="area"
+    ? '<textarea data-k="'+k+'">'+v+'</textarea>'
+    : '<input type="text" data-k="'+k+'" value="'+v+'">';
+  return '<div class="field"><label>'+lab+'</label>'+input+h+'</div>';
+}
+function repeatBlock(d,spec,coach,idx){
+  var list=d[spec.key]||[];
+  var h='<h3 style="margin:26px 0 8px">'+spec.label+'</h3>';
+  if(coach) h+='<p class="hint" style="margin:0 0 10px">'+spec.coach+'</p>';
+  h+='<div data-rep="'+spec.key+'">';
+  list.forEach(function(item,i){
+    h+='<div class="rep"><button class="del" data-del="'+spec.key+'" data-i="'+i+'" title="Remove">&times;</button>';
+    spec.fields.forEach(function(f){
+      h+='<div class="field"><label>'+f[1]+'</label><input type="text" data-rk="'+spec.key+'" data-i="'+i+'" data-f="'+f[0]+'" value="'+esc(item[f[0]])+'"></div>';
+    });
+    h+='</div>';
+  });
+  h+='</div><button class="btn btn-sm btn-g" data-add="'+spec.key+'">+ '+spec.add+'</button>';
+  return h;
+}
+function buildForm(target,d,coach){
+  var h="";
+  h+='<h3 style="margin:0 0 8px">Header</h3>';
+  SIMPLE.slice(0,7).forEach(function(f){h+=simpleField(d,f,coach);});
+  h+='<h3 style="margin:26px 0 8px">Profile</h3>'+simpleField(d,SIMPLE[7],coach);
+  REPEAT.forEach(function(sp){h+=repeatBlock(d,sp,coach);});
+  h+='<h3 style="margin:26px 0 8px">Interests</h3>'+simpleField(d,SIMPLE[8],coach);
+  h+='<h3 style="margin:26px 0 8px">References</h3>'+simpleField(d,SIMPLE[9],coach);
+  $(target).innerHTML=h;
+  wire(target,d);
+}
+function wire(target,d){
+  var root=$(target);
+  root.querySelectorAll("[data-k]").forEach(function(el){
+    el.addEventListener("input",function(){ d[el.dataset.k]=el.value; afterEdit(target); });
+  });
+  root.querySelectorAll("[data-rk]").forEach(function(el){
+    el.addEventListener("input",function(){
+      d[el.dataset.rk][+el.dataset.i][el.dataset.f]=el.value; afterEdit(target);
+    });
+  });
+  root.querySelectorAll("[data-add]").forEach(function(b){
+    b.addEventListener("click",function(){
+      var k=b.dataset.add, spec=REPEAT.filter(function(x){return x.key===k;})[0], o={};
+      spec.fields.forEach(function(f){o[f[0]]="";});
+      d[k].push(o); buildForm(target,d,target==="v2form"); afterEdit(target);
+    });
+  });
+  root.querySelectorAll("[data-del]").forEach(function(b){
+    b.addEventListener("click",function(){
+      d[b.dataset.del].splice(+b.dataset.i,1);
+      buildForm(target,d,target==="v2form"); afterEdit(target);
+    });
+  });
+}
+function afterEdit(target){
+  save();
+  if(target==="v2form"){ renderPreview(); renderV2Score(); }
+}
+
+/* ---------- the checks ---------- */
+var TOOLS=["unreal","unity","blender","maya","3ds max","substance","photoshop","illustrator","krita","zbrush",
+  "houdini","after effects","premiere","davinci","c++","c#","python","java","javascript","lua","blueprint",
+  "git","github","perforce","wwise","fmod","audacity","reaper","visual studio","rider","jira","trello",
+  "figma","aseprite","godot","maya","marmoset","nuke","substance painter","substance designer"];
+var CLICHE=["hardworking","hard working","passionate","team player","excellent communication","go-getter",
+  "think outside","always loved","dedicated individual","motivated individual","good communication",
+  "work well in a team","people person","perfectionist"];
+
+function checks(d){
+  var out=[];
+  var txt=(d.profile+" "+d.interests+" "+
+    d.projects.map(function(p){return p.title+" "+p.meta+" "+p.detail;}).join(" ")+" "+
+    d.skills.map(function(s){return s.cat+" "+s.items;}).join(" ")).toLowerCase();
+
+  // 1 portfolio link
+  var hasLink=/https?:\/\/|\w+\.(com|net|io|dev|uk|org|me|art)/i.test(d.portfolio||"");
+  out.push({ok:hasLink,title:"A portfolio link in the header",
+    good:"There is a link, and it is the first thing a reviewer can click.",
+    bad:"There is no usable portfolio link. The entire job of a CV is to get your portfolio opened \u2014 without a link it cannot do its job."});
+
+  // 2 job title
+  var roleOk=(d.role||"").trim().length>2 && !/student|n\/a|any/i.test(d.role||"");
+  out.push({ok:roleOk,title:"A real job title at the top",
+    good:"You have named the role you are applying for.",
+    bad:"No specific job title, or you have written \u201Cstudent\u201D. A reviewer should know in two seconds which job you want."});
+
+  // 3 email
+  var em=(d.email||"").toLowerCase();
+  var emOk=/@/.test(em) && !/(xx|420|69|gamer|killer|lord|sexy|cool|dude|\d{4,})/.test(em.split("@")[0]);
+  out.push({ok:emOk,title:"A professional email address",
+    good:"The address will not make anyone wince.",
+    bad:"Missing, or the address looks like a gamertag. It sits at the top of the page and sets the tone before anything else is read."});
+
+  // 4 named tools
+  var toolCount=TOOLS.filter(function(t){return txt.indexOf(t)>-1;}).length;
+  out.push({ok:toolCount>=3,title:"Software and engines named exactly",
+    good:"You have named "+toolCount+" specific tools. Those are the words a keyword filter is scanning for.",
+    bad:"Fewer than three named tools. Large studios filter on named engines and languages before a human reads anything \u2014 \u201Cgood with computers\u201D is invisible to that."});
+
+  // 5 cliches
+  var found=CLICHE.filter(function(c){return (d.profile||"").toLowerCase().indexOf(c)>-1;});
+  out.push({ok:found.length===0,title:"A profile that is not boilerplate",
+    good:"No filler phrases detected.",
+    bad:"Found: \u201C"+found.join("\u201D, \u201C")+"\u201D. Every applicant writes these, so they distinguish nobody. Say what you do instead."});
+
+  // 6 projects exist and are above education
+  var projOk=(d.projects||[]).length>=2;
+  out.push({ok:projOk,title:"At least two projects",
+    good:"You have "+d.projects.length+" projects listed.",
+    bad:"Fewer than two projects. At this stage projects are the most persuasive thing you own \u2014 more than your qualification."});
+
+  // 7 specifics in projects
+  var hasNums=(d.projects||[]).filter(function(p){return /\d/.test((p.meta||"")+(p.detail||""));}).length;
+  out.push({ok:d.projects.length>0 && hasNums>=Math.ceil(d.projects.length/2),
+    title:"Numbers in your project entries",
+    good:"Most entries carry a figure \u2014 team size, timescale, asset count.",
+    bad:"Almost no numbers. \u201CMade a game in Unity\u201D and \u201CSole programmer, 4-person team, 48-hour jam\u201D describe the same work at wildly different levels of credibility."});
+
+  // 8 contribution stated
+  var contribWords=/\bi\b|\bmy\b|sole|built|wrote|modelled|animated|designed|programmed|textured|composed/i;
+  var contribOk=(d.projects||[]).filter(function(p){return contribWords.test(p.detail||"");}).length>=Math.max(1,Math.ceil(d.projects.length/2));
+  out.push({ok:d.projects.length>0&&contribOk,title:"Your own contribution stated",
+    good:"You have said what you personally did.",
+    bad:"Team projects with no stated contribution read as a claim to all of it \u2014 and that gets exposed in five minutes of interview."});
+
+  // 9 references
+  var refBad=/available on request/i.test(d.references||"");
+  out.push({ok:!refBad && (d.references||"").trim().length>0,title:"Named references",
+    good:"References are named rather than promised.",
+    bad:refBad?"\u201CAvailable on request\u201D wastes a line everyone already assumes. Name two people \u2014 having asked them first.":"No references given. Name two, and ask them before you do."});
+
+  // 10 interests used properly
+  var intBad=/socialising|socializing|listening to music|watching (films|tv|netflix)|hanging out|gaming with friends/i.test(d.interests||"");
+  out.push({ok:!intBad && (d.interests||"").trim().length>12,title:"Interests that prove something",
+    good:"This section is doing work rather than filling space.",
+    bad:intBad?"Generic hobbies. True of everyone, interesting to nobody \u2014 and it burns the one section where you could stand out.":"Empty or very thin. Jams, communities, personal projects: proof you make things unprompted."});
+
+  // 11 profile length
+  var w=(d.profile||"").trim().split(/\s+/).filter(Boolean).length;
+  out.push({ok:w>=25&&w<=90,title:"A profile of the right length",
+    good:w+" words \u2014 about right.",
+    bad:w<25?"Too short or missing ("+w+" words). Three or four lines saying who you are and what you are aiming at.":"Too long ("+w+" words). Nobody reads a paragraph at the top. Cut it to four lines."});
+
+  // 12 location not full address
+  var addrBad=/\d+\s+\w+\s+(road|street|avenue|drive|lane|park|terrace|close|crescent)/i.test(d.location||"")||/[A-Z]{1,2}\d{1,2}\s?\d[A-Z]{2}/.test(d.location||"");
+  out.push({ok:!addrBad,title:"Location, not your full address",
+    good:"Town or city only \u2014 correct.",
+    bad:"Looks like a full address or postcode. UK employers do not want it, and it is a privacy risk on a document you email to strangers."});
+
+  return out;
+}
+function scoreOf(d){var c=checks(d);return {pass:c.filter(function(x){return x.ok;}).length,total:c.length,list:c};}
+
+/* ---------- diagnostics render ---------- */
+function renderV1(){
+  var r=scoreOf(S.v1);
+  var pct=Math.round(r.pass/r.total*100);
+  var msg = pct<35 ? "Normal. Almost nobody gets this right without being told, which is why we did it this way round."
+    : pct<65 ? "Better than most first attempts \u2014 and still losing you interviews on things nobody ever explained."
+    : "Unusually good for a first go. The remaining failures are the ones that cost people the most.";
+  $("v1score").innerHTML='<span class="big">'+r.pass+" / "+r.total+'</span><p>checks passed. '+msg+'</p>';
+  $("v1diag").innerHTML=r.list.map(function(c){
+    return '<div class="diag '+(c.ok?"good":"bad")+'"><span class="verdict">'+(c.ok?"Passed":"Failed")+'</span>'+
+      "<h4>"+c.title+"</h4><p>"+(c.ok?c.good:c.bad)+"</p></div>";
+  }).join("");
+}
+function renderV2Score(){
+  var r=scoreOf(S.v2), pct=Math.round(r.pass/r.total*100);
+  var was=S.v1?scoreOf(S.v1).pass:0;
+  $("v2score").innerHTML='<span class="big">'+r.pass+" / "+r.total+'</span>'+
+    '<div class="meter"><i style="width:'+pct+'%"></i></div>'+
+    "<p>Version 1 scored "+was+". "+(r.pass>was?"You are "+(r.pass-was)+" ahead \u2014 that difference is your AC2 evidence.":"Keep going.")+"</p>";
+}
+function renderFinalCheck(){
+  var r=scoreOf(S.v2);
+  $("finalCheck").innerHTML=r.list.map(function(c){
+    return '<div class="diag '+(c.ok?"good":"warn")+'"><span class="verdict">'+(c.ok?"Done":"Still open")+'</span>'+
+      "<h4>"+c.title+"</h4><p>"+(c.ok?c.good:c.bad)+"</p></div>";
+  }).join("");
+}
+
+/* ---------- rules ---------- */
+var RULES=[
+ ["Put the portfolio link in the header","Not at the bottom, and never \u201Cavailable on request\u201D. The whole purpose of a CV is to get someone to open your work. If they have to hunt for the link, they will not.",0],
+ ["Projects go above education","Everyone applying has a course. Almost nobody has three finished, documented projects. Lead with the thing that separates you.",1],
+ ["Name software exactly as adverts name it","\u201CUnreal Engine 5\u201D, \u201CSubstance Painter\u201D, \u201CC#\u201D. Large studios filter applications on these words before a person reads anything, so a vague skills section is invisible rather than modest.",2],
+ ["State what you personally did","On every team project. \u201CWorked on a group game\u201D quietly claims the whole thing \u2014 and an interviewer will find out in five minutes.",3],
+ ["Use numbers wherever they exist","Team size, jam length, asset count, poly budgets, how long it took. Numbers are the cheapest credibility available to you.",0],
+ ["One page, as a PDF","Two pages only when you have professional credits. Word files reflow and break on someone else's machine. Name it Firstname-Lastname-CV.pdf.",1],
+ ["Delete the furniture","No photo, no date of birth, no full address, no marital status, no skill rating bars, no \u201Creferences available on request\u201D. UK games studios want none of it.",2],
+ ["Make the interests section earn its place","Jams, communities, meetups, things you built unprompted. This is the only section that proves you make things when nobody is marking you.",3],
+ ["Rewrite it for every application","Tailoring is the difference between a CV that fits and one that was clearly sent to forty studios. Keep a master copy and cut it down each time.",0]
+];
+function renderRules(){
+  var tints=["tint-t","tint-y","tint-o","tint-p"];
+  $("rules").innerHTML='<div class="grid2">'+RULES.map(function(r,i){
+    return '<div class="card '+(i%3===0?tints[r[2]]:"")+'"><h4>'+(i+1)+". "+r[0]+"</h4><p>"+r[1]+"</p></div>";
+  }).join("")+"</div>";
+}
+
+/* ---------- CV preview ---------- */
+function cvHTML(d){
+  var acc=d.accent||"#1B1533";
+  function sec(title,inner){return inner?'<h5>'+title+"</h5>"+inner:"";}
+  var contact=[d.email,d.phone,d.location].filter(Boolean).join(" \u00b7 ");
+  var links=[d.portfolio,d.second].filter(Boolean).join(" \u00b7 ");
+  var skills=(d.skills||[]).filter(function(s){return s.cat||s.items;}).map(function(s){
+    return '<div class="sk"><b>'+esc(s.cat)+"</b><span>"+esc(s.items)+"</span></div>";}).join("");
+  function items(arr){return (arr||[]).filter(function(p){return p.title||p.detail;}).map(function(p){
+    return '<div class="it"><span class="t">'+esc(p.title)+"</span>"+
+      (p.meta?'<br><span class="m">'+esc(p.meta)+"</span>":"")+
+      (p.detail?"<br>"+esc(p.detail):"")+"</div>";}).join("");}
+  return '<div class="cvdoc" style="--cv:'+esc(acc)+'">'+
+    '<p class="nm">'+(d.name?esc(d.name):'<span class="empty">Your name</span>')+"</p>"+
+    '<p class="rl">'+(d.role?esc(d.role):'<span class="empty">Job title you are applying for</span>')+"</p>"+
+    (contact?'<p class="ct">'+esc(contact)+"</p>":"")+
+    (links?'<p class="ct"><strong>'+esc(links)+"</strong></p>":"")+
+    "<hr>"+
+    sec("Profile",d.profile?"<p>"+esc(d.profile)+"</p>":"")+
+    sec("Skills",skills)+
+    sec("Projects",items(d.projects))+
+    sec("Education",items(d.education))+
+    sec("Employment",items(d.employment))+
+    sec("Interests",d.interests?"<p>"+esc(d.interests)+"</p>":"")+
+    sec("References",d.references?"<p>"+esc(d.references)+"</p>":"")+
+    "</div>";
+}
+function renderPreview(){ $("preview").innerHTML=cvHTML(S.v2); }
+
+/* ---------- swatches ---------- */
+var ACCENTS=["#1B1533","#FF5A1F","#00A6A6","#F0468C","#8A6207","#2B5CE6"];
+function renderSwatches(){
+  $("swatches").innerHTML=ACCENTS.map(function(c){
+    return '<button class="sw" style="background:'+c+'" data-c="'+c+'" aria-pressed="'+(S.v2.accent===c)+'" title="'+c+'"></button>';
+  }).join("");
+  $("swatches").querySelectorAll(".sw").forEach(function(b){
+    b.addEventListener("click",function(){S.v2.accent=b.dataset.c;renderSwatches();renderPreview();save();});
+  });
+}
+
+/* ---------- navigation ---------- */
+var PAGES=["p1","p2","p3","p4","p5"];
+function unlock(n){
+  document.querySelectorAll(".nav-btn").forEach(function(b,i){ if(i<n) b.disabled=false; });
+}
+function go(id){
+  PAGES.forEach(function(p){$(p).hidden=(p!==id);});
+  document.querySelectorAll(".nav-btn").forEach(function(b){
+    b.setAttribute("aria-current",String(b.dataset.p===id));});
+  window.scrollTo({top:0,behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
+  if(id==="p5"){renderFinalCheck();}
+}
+document.querySelectorAll(".nav-btn").forEach(function(b){
+  b.addEventListener("click",function(){ if(!b.disabled) go(b.dataset.p); });
+});
+
+/* ---------- export ---------- */
+function doPrint(){
+  $("printArea").innerHTML=cvHTML(S.v2);
+  window.print();
+}
+function download(){
+  var payload={exported:new Date().toISOString(),version1:S.v1,version2:S.v2};
+  var body="<!doctype html><meta charset='utf-8'><title>CV \u2014 both versions</title>"+
+    "<body style=\"font-family:system-ui,sans-serif;max-width:760px;margin:40px auto;padding:0 20px\">"+
+    "<h1>Unit B1 \u2014 CV, both versions</h1>"+
+    "<p>Exported "+new Date().toLocaleString()+". Keep this with your evidence.</p>"+
+    "<h2>Version 1 \u2014 written with no guidance</h2>"+cvHTML(S.v1||BLANK())+
+    "<h2 style='margin-top:40px'>Version 2 \u2014 after the rules</h2>"+cvHTML(S.v2)+
+    "<h2 style='margin-top:40px'>Raw data</h2><pre style='white-space:pre-wrap;font-size:12px;background:#f4f4f4;padding:14px'>"+
+    esc(JSON.stringify(payload,null,2))+"</pre></body>";
+  var blob=new Blob([body],{type:"text/html"});
+  var a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=(S.v2.name||"my")+"-CV-both-versions.html";
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(a.href);},2000);
+  toast("Downloaded","Done");
+}
+
+/* ---------- boot ---------- */
+$("start").addEventListener("click",function(){
+  $("title").style.display="none";
+  $("shell").hidden=false;
+  var had=load();
+  if(had && S.locked){
+    S.v1=S.v1||BLANK();
+    buildForm("v2form",S.v2,true);
+    renderSwatches();renderPreview();renderV2Score();renderV1();renderRules();
+    unlock(5); go("p4");
+    toast("Picked up where you left off","Welcome back");
+  } else {
+    S.v1=S.v1||BLANK();
+    buildForm("v1form",S.v1,false);
+    unlock(1); go("p1");
+  }
+  save();
+});
+
+$("lockV1").addEventListener("click",function(){
+  var filled=Object.keys(S.v1).some(function(k){
+    var v=S.v1[k]; return Array.isArray(v)?v.length>0:(typeof v==="string"&&v.trim()&&k!=="accent");
+  });
+  if(!filled){ toast("Write something first \u2014 even a bad CV needs words in it","Hold on"); return; }
+  S.locked=true;
+  S.v2=JSON.parse(JSON.stringify(S.v1));   // start v2 from v1 so the edits are visible
+  save();
+  $("v1form").querySelectorAll("input,textarea,button").forEach(function(el){el.disabled=true;});
+  renderV1(); unlock(2); go("p2");
+  toast("Version 1 locked. Do not edit it again.","Locked");
+});
+
+$("toRules").addEventListener("click",function(){ renderRules(); unlock(3); go("p3"); });
+$("toBuild").addEventListener("click",function(){
+  buildForm("v2form",S.v2,true); renderSwatches(); renderPreview(); renderV2Score();
+  unlock(4); go("p4");
+});
+$("goExport").addEventListener("click",function(){ unlock(5); go("p5"); });
+$("quickPrint").addEventListener("click",doPrint);
+$("printBtn").addEventListener("click",doPrint);
+$("dlBtn").addEventListener("click",download);
+</script>
+</body>
+</html>
